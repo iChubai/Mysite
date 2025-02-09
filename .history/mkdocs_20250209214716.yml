@@ -51,7 +51,7 @@ theme:
   font:
     text: JetBrains Mono
 
-  favicon: img/xiao(1).png
+  favicon: img/avatar1.png
 
   icon:
     logo: material/coffee
@@ -63,22 +63,14 @@ theme:
 
 plugins:
   - blog:
-      # locale: en
-      # dirs:
-      #   - blogs/posts
-      # show_total: true
-      # features:
-      #   tags:
-      #     index_page: tags/
-      #     insert: top
-      post_date_format: full  # 时间格式
-      draft: true  # 是否显示草稿
-      draft_if_future_date: true  # 自动将具有未来日期的帖子标记为草稿
-      post_readtime: true  # 是否显示阅读时间
-      post_readtime_words_per_minute: 265  # 每分钟阅读的字数
-      post_url_format: "{date}/{slug}"  # 帖子 URL 格式
-      pagination_url_format: "page/{page}"  # 分页 URL 格式
-      authors_file: "{blog}/.authors.yml"  # 作者信息文件
+      locale: en
+      dirs:
+        - blogs/posts
+      show_total: true
+      features:
+        tags:
+          index_page: tags/
+          insert: top
   - callouts
   - glightbox:
       width: 80%
@@ -179,14 +171,20 @@ extra:
     - icon: /fontawesome/brands/github
       link: https://github.com/iChubai/
       name: GitHub
+    - icon: /fontawesome/brands/qq
+      link: /img/qq.jpg
+      name: 加加我的QQ
     - icon: /fontawesome/brands/weixin
       link: /img/wechat.jpg
-      name: 微信
+      name: 加加我的微信
+    - icon: /fontawesome/brands/x-twitter
+      link: https://x.com/MamaTanha76294
+      name: X
     - icon: /fontawesome/brands/zhihu
-      link: https://www.zhihu.com/people/chu-bai-13-4
+      link: https://www.zhihu.com/people/Kinnariya
       name: Zhihu
     - icon: fontawesome/solid/paper-plane
-      link: mailto:2311671@mail.nankai.edu.cn
+      link: mailto:2823324228@qq.com
       name: send email to me!
     # - icon: fontawesome/solid/rss
     #   link: /feed_rss_created.xml
@@ -198,17 +196,43 @@ extra:
   analytics:
     provider: google
     property: G-20LWGZNLLR
+    feedback:
+      title: Support Me!
+      ratings:
+        - icon: fontawesome/regular/hand-back-fist
+          name: Support Me!
+          data: 1
+          note: >-
+            <center> 难道说……你愿意给我买一瓶快乐水吗！🫣 </center>
+            <center> How about...buy me a coffee？😋 </center>
+            <img src="https://cdn.jsdelivr.net/gh/KinnariyaMamaTanha/Images@images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2024-12-07_230055_143.png" width=200px>
 
 nav:
   - Home: index.md
   - Notes:
       - index: notes/index.md
+      - CS61C:
+          - "1 Intro": notes/cs61c/1-intro.md
+          - "2 C Intro": notes/cs61c/2-c-intro.md
+          - "3 Floating Point": notes/cs61c/3-floating-point.md
+          - "4 RISC-V Basic": notes/cs61c/4-RISC-V.md
+          - "5 CALL": notes/cs61c/5-CALL.md
+          - "6 Processor Design": notes/cs61c/6-processor-design.md
+          - "7 Pipeline": notes/cs61c/7-pipeline.md
   - Blogs:
       - index: blogs/index.md
   - Summaries:
       - index: summary/index.md
       - "2025":
           - "一周总结与回顾-1": summary/2025/summary-1.md
+      - "2024":
+          - "一周总结与回顾-8": summary/2024/summary-8.md
+          - "一周总结与回顾-7": summary/2024/summary-7.md
+          - "一周总结与回顾-6": summary/2024/summary-6.md
+          - "一周总结与回顾-5": summary/2024/summary-5.md
+          - "一周总结与回顾-4": summary/2024/summary-4.md
+          - "一周总结与回顾-3": summary/2024/summary-3.md
+          - "一周总结与回顾-2": summary/2024/summary-2.md
   - Tags: tags/index.md
   - Links: links/index.md
   - About: about/index.md
