@@ -13,10 +13,6 @@
          <lastmod>2025-02-09</lastmod>
     </url>
     <url>
-         <loc>https://ichubai.github.io/Mysite/blog/</loc>
-         <lastmod>2025-02-09</lastmod>
-    </url>
-    <url>
          <loc>https://ichubai.github.io/Mysite/blogs/</loc>
          <lastmod>2025-02-09</lastmod>
     </url>
@@ -38,6 +34,10 @@
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/tags/</loc>
+         <lastmod>2025-02-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/blog/</loc>
          <lastmod>2025-02-09</lastmod>
     </url>
 </urlset>
