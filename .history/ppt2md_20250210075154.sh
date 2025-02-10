@@ -1,0 +1,1 @@
+pptx2md compilation.pptx  -o output.md -i [E:/Files_All_in_One/Mysite/overrides/img]
