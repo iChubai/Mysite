@@ -203,10 +203,10 @@ nav:
   - Home: index.md
   - Notes:
       - index: notes/index.md
-      - UCB-CS61c:
-          - "1 Intro": notes/UCB-CS61c/1-intro.md
-          - "2 C pointers": notes/UCB-CS61c/C pointers.md
-          - "3 C strings": notes/UCB-CS61c/C strings.md
+      - CS61C:
+          - "1 Intro": notes/cs61c/1-intro.md
+          - "2 C pointers": notes/cs61c/C pointers.md
+          - "3 C strings": notes/cs61c/C strings.md
   - Blogs:
       - index: blogs/index.md
   - Summaries:
