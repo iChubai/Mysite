@@ -208,9 +208,6 @@ nav:
           - "2 C pointers": notes/UCB-CS61c/C pointers.md
           - "3 C strings": notes/UCB-CS61c/C strings.md
           - "4 C memory management": notes/UCB-CS61c/C memory management.md
-      - MIT6.046:
-          - "1 Interval Scheduling": notes/MIT6.046/Interval Scheduling.md
-          - "2 FFT": notes/MIT6.046/FFT.md
   - Blogs:
       - index: blogs/index.md
   - Summaries:
