@@ -103,6 +103,15 @@ plugins:
   - search
   - statistics:
       words_per_minute: 200
+plugins:
+  - search
+  - math:
+      engine: 'mathjax'
+      macros:
+        "\R": "\mathbb{R}"  # 示例宏定义，可按需添加
+  - search
+  - statistics:
+      words_per_minute: 200
 
 markdown_extensions:
   - abbr
@@ -114,7 +123,6 @@ markdown_extensions:
   - nl2br
   - pymdownx.arithmatex: # latex支持
       generic: true
-
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
@@ -161,22 +169,10 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
-  # - https://busuanzi.icodeq.com/busuanzi.pure.mini.js
-  - js/mathjax.js  
   - https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
-  - https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  # - https://busuanzi.icodeq.com/busuanzi.pure.mini.js
+  - js/mathjax.js
   # - js/toc.js
-  # 移除以下 KaTeX 相关配置
-  # - js/katex.js
-  # - https://cdn.tonycrane.cc/utils/katex.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js
-  # mathjax
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js
 
 extra_css:
   - css/custom.css
