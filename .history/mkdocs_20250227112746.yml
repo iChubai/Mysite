@@ -230,7 +230,7 @@ nav:
           - "4 van Emde Boas Trees : notes/MIT6.046/van Emde Boas Trees.md
       - CMU15418:
           - "1 why parallelism": notes/CMU15418/whyparallelism.md
-          - "2 Modern multicore processors": notes/CMU15418/modernmulticoreprocessors.md
+          - "2 Modern multicore processors": notes/CMU15418/modernmulticoreprocessors/
   - Blogs:
       - index: blogs/index.md
   - Summaries:

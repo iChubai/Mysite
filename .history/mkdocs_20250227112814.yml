@@ -218,19 +218,19 @@ nav:
       - index: notes/index.md
       - UCB-CS61c:
           - "1 Intro": notes/UCB-CS61c/1-intro.md
-          - "2 C pointers": notes/UCB-CS61c/C pointers.md
-          - "3 C strings": notes/UCB-CS61c/C strings.md
-          - "4 C memory management": notes/UCB-CS61c/C memory management.md
-          - "5 float points": notes/UCB-CS61c/float point.md
+          - "2 C pointers": notes/UCB-CS61c/C-pointers.md
+          - "3 C strings": notes/UCB-CS61c/C-strings.md
+          - "4 C memory management": notes/UCB-CS61c/C-memory-management.md
+          - "5 float points": notes/UCB-CS61c/float-point.md
           - "6 RISC-V": notes/UCB-CS61c/RISC-V.md
       - MIT6.046:
-          - "1 Interval Scheduling": notes/MIT6.046/Interval Scheduling.md
-          - "2 FFT": notes/MIT6.046/FFT.md
-          - "3 Convex Hull&Median Finding" : notes/MIT6.046/Convex Hull&Median Finding.md
-          - "4 van Emde Boas Trees : notes/MIT6.046/van Emde Boas Trees.md
+          - "1 Interval Scheduling": notes/MIT6.046/interval-scheduling.md
+          - "2 FFT": notes/MIT6.046/fft.md
+          - "3 Convex Hull & Median Finding": notes/MIT6.046/convex-hull-median-finding.md
+          - "4 van Emde Boas Trees": notes/MIT6.046/van-emde-boas-trees.md
       - CMU15418:
-          - "1 why parallelism": notes/CMU15418/whyparallelism.md
-          - "2 Modern multicore processors": notes/CMU15418/modernmulticoreprocessors.md
+          - "1 why parallelism": notes/CMU15418/why-parallelism.md
+          - "2 Modern multicore processors": notes/CMU15418/modern-multicore-processors/
   - Blogs:
       - index: blogs/index.md
   - Summaries:
