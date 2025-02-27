@@ -2,70 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ichubai.github.io/Mysite/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/academy/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/about/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/blog/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/blogs/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/links/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/notes/CMU15418/modernmulticoreprocessors/</loc>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/notes/CMU15418/whyparallelism/</loc>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/notes/MIT6.046/Convex%20Hull%26Median%20Finding/</loc>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/MIT6.046/FFT/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/MIT6.046/Interval%20Scheduling/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/notes/MIT6.046/van%20Emde%20Boas%20Trees/</loc>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/1-intro/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/C%20memory%20management/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/C%20pointers/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/C%20strings/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
+    </url>
+    <url>
+         <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/RISC-V/</loc>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/notes/UCB-CS61c/float%20point/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/summary/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/summary/2025/summary-1/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
     <url>
          <loc>https://ichubai.github.io/Mysite/tags/</loc>
-         <lastmod>2025-02-24</lastmod>
+         <lastmod>2025-02-27</lastmod>
     </url>
 </urlset>
