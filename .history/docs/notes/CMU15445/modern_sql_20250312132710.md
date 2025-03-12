@@ -1,0 +1,199 @@
+# Lecture 02: Modern SQL 📚  
+**15-445/645 Database Systems (Spring 2025)**  
+*Carnegie Mellon University | Prof. Jignesh Patel*  
+
+---
+
+## 1. SQL History 📜  
+- **Origins**:  
+  - Developed in the 1970s as part of IBM’s System R project.  
+  - Originally called **SEQUEL** (Structured English Query Language).  
+  - Renamed **SQL** (Structured Query Language) in the 1980s.  
+
+- **Standards**:  
+  - **SQL-92**: Minimum standard for claiming SQL support.  
+  - Major updates:  
+    | Version | Key Features |  
+    |---------|--------------|  
+    | SQL:1999 | Regular Expressions, Triggers |  
+    | SQL:2003 | XML, Windows, Sequences |  
+    | SQL:2008 | Truncation, Fancy Sorting |  
+    | SQL:2011 | Temporal DBs, Pipelined DML |  
+    | SQL:2016 | JSON, Polymorphic Tables |  
+    | SQL:2023 | Property Graph Queries, Multi-Dim. Arrays |  
+
+---
+
+## 2. Relational Languages 🛠️  
+- **Categories**:  
+  - **DML** (Data Manipulation): `SELECT`, `INSERT`, `UPDATE`, `DELETE`.  
+  - **DDL** (Data Definition): Schema definitions (tables, indexes).  
+  - **DCL** (Data Control): Security, access controls.  
+  - **Others**: Views, constraints, transactions.  
+
+- **Key Difference**:  
+  - Relational Algebra uses **sets** (no duplicates).  
+  - SQL uses **bags** (allows duplicates).  
+
+---
+
+## 3. Example Database 🗃️  
+**Tables**:  
+
+### `student`  
+| sid   | name   | login      | age | gpa |  
+|-------|--------|------------|-----|-----|  
+| 53666 | RZA    | rza@cs     | 55  | 4.0 |  
+| 53688 | Taylor | swift@cs  | 27  | 3.9 |  
+| 53655 | Tupac  | shakur@cs  | 25  | 3.5 |  
+
+### `course`  
+| cid      | name                          |  
+|----------|-------------------------------|  
+| 15-445   | Database Systems             |  
+| 15-721   | Advanced Database Systems     |  
+| 15-826   | Data Mining                   |  
+| 15-799   | Special Topics in Databases   |  
+
+### `enrolled`  
+| sid   | cid     | grade |  
+|-------|---------|-------|  
+| 53666 | 15-445  | C     |  
+| 53688 | 15-721  | A     |  
+| 53688 | 15-826  | B     |  
+| 53655 | 15-445  | B     |  
+| 53666 | 15-721  | C     |  
+
+---
+
+## 4. Aggregates 🧮  
+**Functions**: `AVG`, `MIN`, `MAX`, `SUM`, `COUNT`.  
+
+### Example 1: Count Students with "@cs" Login  
+```sql  
+SELECT COUNT(login) AS cnt  
+FROM student  
+WHERE login LIKE '%@cs';  
+```  
+**Output**: `cnt = 3`.  
+
+### Example 2: Multiple Aggregates  
+```sql  
+SELECT AVG(gpa), COUNT(sid)  
+FROM student  
+WHERE login LIKE '%@cs';  
+```  
+**Output**:  
+| AVG(gpa) | COUNT(sid) |  
+|----------|------------|  
+| 3.8      | 3          |  
+
+### Example 3: Group By + HAVING  
+```sql  
+SELECT AVG(s.gpa), e.cid  
+FROM enrolled AS e  
+JOIN student AS s ON e.sid = s.sid  
+GROUP BY e.cid  
+HAVING AVG(s.gpa) > 3.9;  
+```  
+**Output**:  
+| AVG(s.gpa) | cid     |  
+|------------|---------|  
+| 3.9        | 15-721  |  
+
+---
+
+## 5. String Operations 📝  
+- **Case Sensitivity**: SQL-92 is case-sensitive.  
+- **Pattern Matching**: Use `LIKE`, `%` (any substring), `_` (single character).  
+
+### Example:  
+```sql  
+SELECT *  
+FROM student  
+WHERE UPPER(name) = UPPER('TuPaC');  
+```  
+**Output**: Tupac’s record.  
+
+---
+
+## 6. Output Control 🎛️  
+- **Sorting**:  
+  ```sql  
+  SELECT sid, grade  
+  FROM enrolled  
+  WHERE cid = '15-721'  
+  ORDER BY grade DESC;  
+  ```  
+- **Limits**:  
+  ```sql  
+  SELECT sid, name  
+  FROM student  
+  LIMIT 2;  
+  ```  
+
+---
+
+## 7. Window Functions 🪟  
+**Concept**: Compute values over a "window" of rows.  
+
+### Example: Rank Students by Grade  
+```sql  
+SELECT *, RANK() OVER (PARTITION BY cid ORDER BY grade)  
+FROM enrolled;  
+```  
+**Output**:  
+| sid   | cid     | grade | rank |  
+|-------|---------|-------|------|  
+| 53655 | 15-445  | B     | 1    |  
+| 53666 | 15-445  | C     | 2    |  
+
+---
+
+## 8. Nested Queries 🔄  
+### Example: Find Students Enrolled in 15-445  
+```sql  
+SELECT name  
+FROM student  
+WHERE sid IN (  
+    SELECT sid  
+    FROM enrolled  
+    WHERE cid = '15-445'  
+);  
+```  
+**Output**: RZA and Tupac.  
+
+---
+
+## 9. Lateral Joins 🔗  
+**Use Case**: Reference outer query columns in subqueries.  
+
+### Example: Course Stats  
+```sql  
+SELECT c.cid, t1.cnt, t2.avg_gpa  
+FROM course AS c  
+LATERAL (SELECT COUNT(*) AS cnt FROM enrolled WHERE cid = c.cid) AS t1  
+LATERAL (SELECT AVG(gpa) AS avg_gpa FROM student s  
+         JOIN enrolled e ON s.sid = e.sid WHERE e.cid = c.cid) AS t2;  
+```  
+
+---
+
+## 10. Common Table Expressions (CTEs) 📦  
+### Example: Recursive Counter  
+```sql  
+WITH RECURSIVE cteSource (counter) AS (  
+    SELECT 1  
+    UNION  
+    SELECT counter + 1 FROM cteSource WHERE counter < 10  
+)  
+SELECT * FROM cteSource;  
+```  
+**Output**: Numbers 1 to 10.  
+
+---
+
+**Key Takeaways** 🚀  
+- SQL evolves with new standards (e.g., SQL:2023).  
+- Master **aggregates**, **window functions**, and **CTEs** for advanced queries.  
+- Use **LATERAL** and nested queries for complex joins.  

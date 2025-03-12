@@ -1,0 +1,235 @@
+# Machine-Level Programming I: Basics 🖥️
+
+**15-213/14-513/15-513: Introduction to Computer Systems**  
+3rd Lecture, Sept 3, 2024  
+
+---
+
+## Pre-Class Setup 🛠️  
+Login to a Shark machine and run:  
+```bash
+wget http://www.cs.cmu.edu/~213/activities/gdb-and-assembly.pdf  
+wget http://www.cs.cmu.edu/~213/activities/gdb-and-assembly.tar  
+tar xf gdb-and-assembly.tar  
+cd gdb-and-assembly  
+```
+
+---
+
+## Announcements 📢  
+- **Lab 0** due today at midnight (no grace days).  
+  - If lab takes >10 hours, consider dropping or studying C intensively.  
+  - Submit via Autolab.  
+- **Lab 1 (DataLab)** due Tue, Sept 10.  
+- **Lab 2 (Bomb Lab)** released Thu, Sept 5; due Thu, Sept 19.  
+- **Written Assignment 1** out Wed, Sept 4 (via Canvas); due Wed, Sept 11.  
+- **Bootcamp 2 (Debugging & GDB)** on Sun, Sept 8 (details on Piazza).  
+
+---
+
+## Today’s Topics 📌  
+1. History of Intel processors and architectures (CSAPP 3.1)  
+2. Assembly Basics: Registers, operands, `mov` (CSAPP 3.3-3.4)  
+3. Arithmetic & logical operations (CSAPP 3.5)  
+4. C, assembly, machine code (CSAPP 3.2)  
+
+---
+
+## Intel x86 Processors 🏭  
+### Key Features:  
+- Dominates laptop/desktop/server markets.  
+- **CISC (Complex Instruction Set Computer)**:  
+  - Thousands of instructions with varied formats.  
+  - Only a subset used in Linux programs.  
+- **Evolutionary design**: Backward compatible since 1978 (8086).  
+- Recent shift to **x86-64** (64-bit architecture).  
+
+### Comparison with RISC:  
+| **CISC (x86)** | **RISC (ARM, RISC-V)** |  
+|----------------|------------------------|  
+| Many instructions | Fewer instructions |  
+| Variable formats | Fixed formats |  
+| Complex hardware | Simpler hardware |  
+| Legacy support | Modern low-power focus |  
+
+---
+
+## Intel x86 Evolution Timeline 🕰️  
+### Milestones:  
+| Name       | Year | Transistors | Clock (MHz) | Key Contribution |  
+|------------|------|-------------|-------------|-------------------|  
+| 8086       | 1978 | 29K         | 5-10        | First 16-bit CPU, 1MB address space |  
+| 386        | 1985 | 275K        | 16-33       | First 32-bit (IA32), flat addressing |  
+| Pentium 4E | 2004 | 125M        | 2800-3800   | First 64-bit (x86-64) |  
+| Core 2     | 2006 | 291M        | 1060-3333   | First multi-core |  
+| Core i7    | 2008 | 731M        | 1600-4400   | Quad-core (Shark machines) |  
+
+![](https://wy-static.wenxiaobai.com/chat-doc/3a651eb0482305c0ffdf05cb6488b2f6-image.png)
+
+---
+
+## x86-64 Integer Registers 🧮  
+### 16 General-Purpose Registers:  
+| 64-bit | 32-bit | 16-bit | 8-bit | Purpose |  
+|--------|--------|--------|-------|---------|  
+| `%rax` | `%eax` | `%ax`  | `%al` | Return value |  
+| `%rbx` | `%ebx` | `%bx`  | `%bl` | Callee-saved |  
+| `%rcx` | `%ecx` | `%cx`  | `%cl` | 4th argument |  
+| `%rdx` | `%edx` | `%dx`  | `%dl` | 3rd argument |  
+| `%rsp` | `%esp` | `%sp`  | -     | Stack pointer |  
+| `%rbp` | `%ebp` | `%bp`  | -     | Base pointer |  
+| ...    | ...    | ...    | ...   | ... |  
+
+**Note**: `%rsp` is reserved for stack operations.  
+
+---
+
+## Assembly Operations ⚙️  
+### Data Movement:  
+**`movq Source, Dest`**  
+- **Operand Types**:  
+  - **Immediate**: `$0x400`, `$-533` (constant values).  
+  - **Register**: `%rax`, `%r13`.  
+  - **Memory**: `(%rax)` (dereference address in `%rax`).  
+
+**Examples**:  
+| Instruction          | C Equivalent        |  
+|----------------------|---------------------|  
+| `movq $0x4, %rax`    | `temp = 0x4;`       |  
+| `movq %rax, (%rdx)`  | `*p = temp;`        |  
+| `movq 8(%rbp), %rdx` | `temp = *(p + 8);`  |  
+
+**Rule**: No memory-to-memory transfers in one instruction!  
+
+---
+
+## Swap Function Example 🔄  
+### C Code:  
+```c  
+void swap(long *xp, long *yp) {  
+    long t0 = *xp;  
+    long t1 = *yp;  
+    *xp = t1;  
+    *yp = t0;  
+}  
+```  
+
+### Assembly Implementation:  
+```assembly  
+swap:  
+    movq (%rdi), %rax   # t0 = *xp  
+    movq (%rsi), %rdx   # t1 = *yp  
+    movq %rdx, (%rdi)   # *xp = t1  
+    movq %rax, (%rsi)   # *yp = t0  
+    ret  
+```  
+
+### Step-by-Step Execution:  
+1. Load `*xp` into `%rax`.  
+2. Load `*yp` into `%rdx`.  
+3. Store `%rdx` into `*xp`.  
+4. Store `%rax` into `*yp`.  
+
+![](https://wy-static.wenxiaobai.com/chat-doc/35497a3d52b28c469feac8d7cc784294-image.png)
+
+---
+
+## Addressing Modes 🗺️  
+### General Form: **`D(Rb, Ri, S)`**  
+- **Address** = `Rb + S * Ri + D`  
+  - `D`: Displacement (1, 2, or 4 bytes).  
+  - `Rb`: Base register.  
+  - `Ri`: Index register (not `%rsp`).  
+  - `S`: Scale (1, 2, 4, 8).  
+
+**Examples**:  
+| Expression          | Computation                | Address (Hex) |  
+|----------------------|----------------------------|---------------|  
+| `0x8(%rdx)`          | `0xf000 + 0x8`             | `0xf008`      |  
+| `(%rdx, %rcx, 4)`   | `0xf000 + 4*0x100`         | `0xf400`      |  
+| `0x80(,%rdx,2)`      | `2*0xf000 + 0x80`          | `0x1e080`     |  
+
+---
+
+## Arithmetic Operations ➕➖  
+### Two-Operand Instructions:  
+| Instruction | Effect           | Example           |  
+|-------------|------------------|-------------------|  
+| `addq S,D`  | `D = D + S`      | `addq %rax, %rbx` |  
+| `subq S,D`  | `D = D - S`      | `subq $4, %rsp`   |  
+| `imulq S,D` | `D = D * S`      | `imulq %rcx, %rdx`|  
+| `salq S,D`  | `D = D << S`     | `salq $3, %rax`   |  
+
+### One-Operand Instructions:  
+| Instruction | Effect           | Example           |  
+|-------------|------------------|-------------------|  
+| `incq D`    | `D = D + 1`      | `incq %rdi`       |  
+| `negq D`    | `D = -D`         | `negq %rax`       |  
+
+---
+
+## Compiling C to Assembly 🔄  
+### Example: Arithmetic Expression  
+**C Code**:  
+```c  
+long arith(long x, long y, long z) {  
+    long t1 = x + y;  
+    long t2 = z + t1;  
+    long t3 = x + 4;  
+    long t4 = y * 48;  
+    long t5 = t3 + t4;  
+    return t2 * t5;  
+}  
+```  
+
+**Compiled Assembly**:  
+```assembly  
+arith:  
+    leaq (%rdi,%rsi), %rax   # t1 = x + y  
+    addq %rdx, %rax          # t2 = z + t1  
+    leaq (%rsi,%rsi,2), %rdx  
+    salq $4, %rdx            # t4 = y * 48  
+    leaq 4(%rdi,%rdx), %rcx  # t5 = x + 4 + t4  
+    imulq %rcx, %rax         # return t2 * t5  
+    ret  
+```  
+
+**Key Instructions**:  
+- `leaq`: Compute address without memory access.  
+- `salq`: Shift left for multiplication by 16 (`y*48 = y*3*16`).  
+
+---
+
+## Disassembling Object Code 🔍  
+### Example: `sumstore` Function  
+**Object Code (Hex)**:  
+```  
+53 48 89 d3 e8 f2 ff ff ff 48 89 03 5b c3  
+```  
+
+**Disassembled Output**:  
+```assembly  
+0000000000400595 <sumstore>:  
+   400595: 53                   push   %rbx  
+   400596: 48 89 d3             mov    %rdx,%rbx  
+   400599: e8 f2 ff ff ff       callq  400590 <plus>  
+   40059e: 48 89 03             mov    %rax,(%rbx)  
+   4005a1: 5b                   pop    %rbx  
+   4005a2: c3                   retq  
+```  
+
+**Steps**:  
+1. Push `%rbx` to save it.  
+2. Move argument `z` (`%rdx`) to `%rbx`.  
+3. Call `plus` function.  
+4. Store result (`%rax`) into `*dest` (`%rbx`).  
+5. Restore `%rbx` and return.  
+
+---
+
+## Key Takeaways 🎯  
+1. **x86-64 Architecture**: Evolutionary design with CISC legacy.  
+2. **Registers & Memory**: 16 GP registers; memory addressed via modes like `D(Rb,Ri,S)`.  
+3. **Assembly Basics**: `mov`, arithmetic, and control flow instructions.  
+4. **Compilation Pipeline**: C → Assembly → Object Code → Executable.  
+5. **Debugging Tools**: `objdump` and GDB for disassembly.  

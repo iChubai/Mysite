@@ -1,0 +1,238 @@
+# Lecture 01: Relational Model & Algebra  
+**15-445/645 Database Systems (Spring 2025)**  
+**Carnegie Mellon University**  
+**Prof. Jignesh Patel**  
+
+---
+
+## 📚 **Course Overview**  
+- Focuses on **design/implementation of DBMSs** (not using/administering DBMSs).  
+- **Textbook**: *Database System Concepts, 7th Ed.* by Silberschatz, Korth, & Sudarshan.  
+- **Grading**:  
+  - Homeworks (15%)  
+  - Projects (45%)  
+  - Midterm (20%)  
+  - Final Exam (20%)  
+
+⚠️ **Plagiarism Warning**: All work must be original. Code copying is strictly prohibited.  
+
+---
+
+## 🗄️ **What is a Database?**  
+- **Database**: Organized collection of inter-related data modeling real-world aspects (e.g., digital music store tracking artists/albums).  
+- **DBMS**: Software managing the database (e.g., MySQL, Oracle).  
+
+---
+
+## 🧩 **Flat File Strawman**  
+Storing data in CSV files leads to issues:  
+
+### **Example: Artists and Albums**  
+**`artists.csv`**  
+```csv
+"Wu-Tang Clan",1992,"USA"
+"Notorious BIG",1992,"USA"
+"GZA",1990,"USA"
+```  
+
+**`albums.csv`**  
+```csv
+"Enter the Wu-Tang","Wu-Tang Clan",1993
+"St. Ides Mix Tape","Wu-Tang Clan",1994
+"Liquid Swords","GZA",1995
+```  
+
+### ⚠️ **Issues with Flat Files**  
+1. **Data Integrity**:  
+   - No enforcement of artist-album relationships.  
+   - Invalid data types (e.g., string instead of year).  
+2. **Implementation**:  
+   - No concurrency control (e.g., simultaneous writes).  
+3. **Durability**:  
+   - Risk of data loss during crashes.  
+
+---
+
+## 🛠️ **Relational Model**  
+Proposed by **Ted Codd (IBM, 1969)** to decouple logical and physical layers.  
+
+### **Key Tenets**  
+1. **Structure**: Relations (tables) define data independently of storage.  
+2. **Integrity**: Constraints (e.g., primary keys, foreign keys).  
+3. **Manipulation**: High-level querying (e.g., SQL).  
+
+### **Example: Artists Table**  
+| `id` | `name`          | `year` | `country` |  
+|------|-----------------|--------|-----------|  
+| 101  | Wu-Tang Clan    | 1992   | USA       |  
+| 102  | Notorious BIG   | 1992   | USA       |  
+| 103  | GZA             | 1990   | USA       |  
+
+### **Constraints**  
+- **Primary Key**: Uniquely identifies a tuple (e.g., `id`).  
+- **Foreign Key**: Links to another relation (e.g., `artist_id` in `albums`).  
+- **User-Defined**:  
+  ```sql
+  CREATE TABLE Artist (
+    name VARCHAR NOT NULL,
+    year INT CHECK (year > 1900)
+  );
+  ```  
+
+---
+
+## 🔍 **Relational Algebra**  
+Fundamental operations to manipulate relations.  
+
+### 1. **Select (σ)**  
+Filters tuples based on a predicate.  
+**Syntax**: $\sigma_{\text{predicate}}(R)$  
+
+**Example**:  
+- **Relation `R`**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a1     | 101    |  
+  | a2     | 102    |  
+  | a2     | 103    |  
+  | a3     | 104    |  
+
+- **Query**: $\sigma_{a\_id='a2'}(R)$  
+  **Result**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a2     | 102    |  
+  | a2     | 103    |  
+
+**SQL Equivalent**:  
+```sql
+SELECT * FROM R WHERE a_id = 'a2';
+```  
+
+---
+
+### 2. **Projection (π)**  
+Selects specific attributes.  
+**Syntax**: $\pi_{\text{attributes}}(R)$  
+
+**Example**:  
+- **Query**: $\pi_{b\_id-100, a\_id}(\sigma_{a\_id='a2'}(R))$  
+  **Result**:  
+  | `b_id-100` | `a_id` |  
+  |------------|--------|  
+  | 2          | a2     |  
+  | 3          | a2     |  
+
+**SQL Equivalent**:  
+```sql
+SELECT b_id-100, a_id FROM R WHERE a_id = 'a2';
+```  
+
+---
+
+### 3. **Union (∪)**  
+Combines tuples from two relations.  
+**Syntax**: $R \cup S$  
+
+**Example**:  
+- **Relation `R`**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a1     | 101    |  
+  | a2     | 102    |  
+
+- **Relation `S`**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a2     | 102    |  
+  | a3     | 103    |  
+
+- **Result**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a1     | 101    |  
+  | a2     | 102    |  
+  | a3     | 103    |  
+
+**SQL Equivalent**:  
+```sql
+(SELECT * FROM R) UNION (SELECT * FROM S);
+```  
+
+---
+
+### 4. **Join (⋈)**  
+Combines tuples with matching attributes.  
+**Syntax**: $R \bowtie S$  
+
+**Example**:  
+- **Relation `R`**:  
+  | `a_id` | `b_id` |  
+  |--------|--------|  
+  | a1     | 101    |  
+  | a2     | 102    |  
+
+- **Relation `S`**:  
+  | `a_id` | `b_id` | `val` |  
+  |--------|--------|-------|  
+  | a2     | 102    | XXX   |  
+  | a3     | 103    | YYY   |  
+
+- **Result**:  
+  | `a_id` | `b_id` | `val` |  
+  |--------|--------|-------|  
+  | a2     | 102    | XXX   |  
+
+**SQL Equivalent**:  
+```sql
+SELECT * FROM R NATURAL JOIN S;
+```  
+
+---
+
+## 📄 **Document Data Model**  
+- Stores **hierarchical data** (e.g., JSON/XML).  
+- **Example**:  
+  ```json
+  {
+    "name": "GZA",
+    "year": 1990,
+    "albums": [
+      { "name": "Liquid Swords", "year": 1995 },
+      { "name": "Beneath the Surface", "year": 1999 }
+    ]
+  }
+  ```  
+
+⚠️ **Issues**: Similar to flat files (data integrity, duplication).  
+
+---
+
+## 🔢 **Vector Data Model**  
+- Represents data as **vectors** for ML applications (e.g., semantic search).  
+- **Example**:  
+  | `id` | `name`               | `year` | `embedding`              |  
+  |------|---------------------|--------|--------------------------|  
+  | 11   | Enter the Wu-Tang   | 1993   | [0.2, 0.5, ..., 0.7]     |  
+  | 22   | St. Ides Mix Tape   | 1994   | [0.1, 0.8, ..., 0.3]     |  
+
+**Use Case**: Nearest-neighbor search for embeddings (e.g., ChatGPT).  
+
+---
+
+## 🛠️ **Project 0 (P0): Skip List**  
+- **Goal**: Implement a thread-safe Skip List in C++.  
+- **Key Features**:  
+  - Average $O(\log n)$ search/insert/delete.  
+  - Due: **Jan 26 @ 11:59 PM** (No late days!).  
+
+⚠️ **Warning**: Failure to score 100% results in automatic withdrawal.  
+
+---
+
+## 📅 **Key Takeaways**  
+1. **Relational Model** abstracts storage details and ensures data integrity.  
+2. **Relational Algebra** provides foundational query operations.  
+3. **Alternative Models** (Document, Vector) address niche use cases but inherit flat-file issues.  
+
+🚀 **Next**: Dive into SQL and Query Optimization!  
