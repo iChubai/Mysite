@@ -1,0 +1,1 @@
+pptx2md [E:/Files_All_in_One/Mysite/compilation.pptx] -t titles.txt -o output.md -i [path]

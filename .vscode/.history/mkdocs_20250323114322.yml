@@ -217,13 +217,13 @@ nav:
   - Notes:
       - index: notes/index.md
       - Awesome-blogs:
-          - "NLP": notes/Awesome-Blogs/NLP.md
-          - "CV": notes/Awesome-Blogs/CV.md
-          - "RL": notes/Awesome-Blogs/RL.md
-          - "OS": notes/Awesome-Blogs/OS.md
-          - "DB": notes/Awesome-Blogs/DB.md
-          - "math": notes/Awesome-Blogs/math.md
-          - "AI": notes/Awesome-Blogs/AI.md
+          - "NLP": notes/Awesome-blogs/NLP.md
+          - "CV": notes/Awesome-blogs/CV.md
+          - "RL": notes/Awesome-blogs/RL.md
+          - "OS": notes/Awesome-blogs/OS.md
+          - "DB": notes/Awesome-blogs/DB.md
+          - "math": notes/Awesome-blogs/math.md
+          - "AI": notes/Awesome-blogs/AI.md
       - UCB-CS61c:
           - "1 Intro": notes/UCB-CS61c/1-intro.md
           - "2 C pointers": notes/UCB-CS61c/C pointers.md

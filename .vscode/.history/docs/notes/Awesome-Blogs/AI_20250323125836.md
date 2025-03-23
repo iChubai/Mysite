@@ -1,0 +1,3 @@
+- [归一化1](https://paddlepedia.readthedocs.io/en/latest/tutorials/deep_learning/normalization/basic_normalization.html)
+- [PostNorm&&PreNorm](https://zhuanlan.zhihu.com/p/12228475399)
+- [PostNorm&&&&PreNorm](https://kexue.fm/archives/9009)      

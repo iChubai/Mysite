@@ -1,0 +1,9 @@
+#pptx2md lecture-03.pdf  -o output.md -i [E:/Files_All_in_One/Mysite/overrides/img]
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all
+conda remove --name ARTrack --all

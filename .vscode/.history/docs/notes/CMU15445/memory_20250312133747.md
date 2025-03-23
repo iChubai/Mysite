@@ -1,0 +1,144 @@
+# Lecture 04: Memory & Disk Management  
+**15-445/645 Database Systems (Spring 2025)**  
+**Carnegie Mellon University**  
+**Prof. Jignesh Patel**  
+
+---
+
+## 📌 Key Concepts  
+### 1. **Disk-Oriented DBMS**  
+- **Primary Storage**: Persistent storage (HDD/SSD).  
+- **Buffer Pool Manager**: Moves data between disk and memory.  
+- **Illusion**: Database appears fully in memory, even if larger than available RAM.  
+
+**Optimization Goals**:  
+1. **Spatial Control**: Keep related pages physically close on disk (improves prefetching).  
+2. **Temporal Control**: Minimize disk I/O stalls by managing when pages are loaded/evicted.  
+
+![Disk-Oriented DBMS](https://wy-static.wenxiaobai.com/chat-doc/0c0b485efdea62e7e0abbd70f34b43f0-image.png)  
+
+---
+
+### 2. **Buffer Pool Organization**  
+- **Structure**: Array of fixed-size **frames** (each holds a page copy).  
+- **Write-Back Cache**: Dirty pages are buffered, not immediately written to disk.  
+- **Page Table**: In-memory hash table mapping page IDs → buffer pool frames.  
+
+**Meta-Data per Page**:  
+- **Dirty Flag**: Indicates if modified (needs write-back).  
+- **Pin/Reference Counter**: Tracks active accesses (pinned pages cannot be evicted).  
+- **Access Tracking**: Used for replacement policies (e.g., LRU timestamps).  
+
+![Buffer Pool Organization](https://wy-static.wenxiaobai.com/chat-doc/f678ecf51f81e05cc14dd20034dcb777-image.png)  
+
+---
+
+### 3. **Locks vs. Latches**  
+| **Locks** 🔒 | **Latches** 🔩 |  
+|--------------|----------------|  
+| Protect logical DB content (e.g., tuples). | Protect internal data structures (e.g., hash tables). |  
+| Held for transaction duration. | Held for operation duration. |  
+| Support rollbacks. | No rollback needed. |  
+| Example: Row-level locks. | Example: Mutexes for page table access. |  
+
+---
+
+### 4. **Page Table vs. Page Directory**  
+- **Page Directory**: On-disk mapping of page IDs → physical locations.  
+- **Page Table**: In-memory mapping of page IDs → buffer pool frames.  
+
+**Example**:  
+- Page Directory entry: `Page#5 → Disk Block 1023`.  
+- Page Table entry: `Page#5 → Frame#7 (Dirty: True, Pin Count: 2)`.  
+
+---
+
+### 5. **Why Not Use OS mmap?** 🚨  
+**Problems**:  
+1. **Transaction Safety**: OS may flush dirty pages prematurely.  
+2. **I/O Stalls**: Threads stall on page faults (DBMS can’t predict which pages are in memory).  
+3. **Error Handling**: SIGBUS errors on invalid page access.  
+4. **Performance**: TLB shootdowns and OS contention.  
+
+**DBMS Advantages**:  
+- Control over flushing order, prefetching, replacement policies, and thread scheduling.  
+
+**OS Workarounds** (e.g., `madvise`, `mlock`, `msync`) are as complex as manual management.  
+
+---
+
+## 🔄 Buffer Replacement Policies  
+### **Goals**:  
+- **Correctness**: Avoid evicting pinned/dirty pages.  
+- **Accuracy**: Predict future access patterns.  
+- **Speed**: Low overhead.  
+- **Low Meta-Data**: Minimal per-page storage.  
+
+---
+
+### 1. **Least Recently Used (LRU)**  
+- **Mechanism**: Track last access timestamp; evict oldest page.  
+- **Implementation**: Sorted list or priority queue.  
+- **Example**:  
+  - Pages: `[A (ts=10), B (ts=5), C (ts=15)]` → Evict **B**.  
+
+**Weakness**:  
+- **Sequential Flooding**: Scans pollute the buffer pool (e.g., `SELECT * FROM table` evicts useful pages).  
+
+![LRU Policy](https://wy-static.wenxiaobai.com/chat-doc/9904e2842049074139245a7c92886d17-image.png)  
+
+---
+
+### 2. **CLOCK (Approximate LRU)**  
+- **Mechanism**:  
+  - Each page has a **reference bit** (1 if accessed recently).  
+  - Clock hand sweeps frames; evicts pages with reference bit = 0.  
+- **Example**:  
+  - Pages: `[A (ref=1), B (ref=0), C (ref=1)]` → Evict **B**.  
+
+![CLOCK Policy](https://wy-static.wenxiaobai.com/chat-doc/8276497244de138ecd7a5acc834fd459-image.png)  
+
+---
+
+### 3. **LRU-K**  
+- **Mechanism**: Track last **K** accesses to predict future use.  
+- **Example**:  
+  - `K=2`: Page A accessed at times `[t=5, t=10]` → Interval = 5.  
+  - Prefer evicting pages with longer intervals (less frequently accessed).  
+
+**Tradeoff**: Higher meta-data overhead.  
+
+---
+
+## 🧩 Handling Dirty Pages  
+- **Fast Path**: Non-dirty pages are simply dropped.  
+- **Slow Path**: Dirty pages must be written to disk before eviction.  
+
+**Optimization**:  
+- **Background Writing**: Periodically flush dirty pages to reduce eviction latency.  
+
+---
+
+## 🚀 Buffer Pool Optimizations  
+### 1. **Multiple Buffer Pools**  
+- **Purpose**: Reduce contention (e.g., separate pools for indexes and tables).  
+- **Mapping**: Use hashing or object IDs to assign pages to pools.  
+
+### 2. **Pre-Fetching**  
+- **Mechanism**: Load pages needed for future operations (e.g., sequential scans).  
+- **Example**:  
+  - During a `B+Tree` index scan, prefetch sibling leaf pages.  
+
+### 3. **Scan Sharing**  
+- **Mechanism**: Multiple queries reuse a single scan cursor.  
+- **Example**:  
+  - Query 1 scans `Table X`; Query 2 attaches to the same scan.  
+
+---
+
+## ⚠️ Key Takeaways  
+- **Avoid OS mmap**: DBMS needs full control over memory management.  
+- **Replacement Policies**: Balance accuracy and overhead (CLOCK > LRU for large pools).  
+- **Optimize I/O**: Use Direct I/O, prefetching, and multiple pools.  
+
+📊 **Final Thought**: The OS is **not** your friend! 🛑  

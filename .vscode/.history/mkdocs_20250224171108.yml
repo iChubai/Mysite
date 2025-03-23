@@ -166,12 +166,14 @@ extra_javascript:
   - https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
   - https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
   # - js/toc.js
-  # 移除以下 KaTeX 相关配置
-  # - js/katex.js
-  # - https://cdn.tonycrane.cc/utils/katex.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js
-  # - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js
+  - js/katex.js
+  - js/toc.js
+  - https://cdn.tonycrane.cc/utils/katex.min.js
+
+  # katex
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js
+
   # mathjax
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js
@@ -216,49 +218,14 @@ nav:
   - Home: index.md
   - Notes:
       - index: notes/index.md
-      - Awesome-blogs:
-          - "NLP": notes/Awesome-Blogs/NLP.md
-          - "CV": notes/Awesome-Blogs/CV.md
-          - "RL": notes/Awesome-Blogs/RL.md
-          - "OS": notes/Awesome-Blogs/OS.md
-          - "DB": notes/Awesome-Blogs/DB.md
-          - "math": notes/Awesome-Blogs/math.md
-          - "AI": notes/Awesome-Blogs/AI.md
       - UCB-CS61c:
           - "1 Intro": notes/UCB-CS61c/1-intro.md
           - "2 C pointers": notes/UCB-CS61c/C pointers.md
           - "3 C strings": notes/UCB-CS61c/C strings.md
           - "4 C memory management": notes/UCB-CS61c/C memory management.md
-          - "5 float points": notes/UCB-CS61c/float point.md
-          - "6 RISC-V": notes/UCB-CS61c/RISC-V.md
       - MIT6.046:
           - "1 Interval Scheduling": notes/MIT6.046/Interval Scheduling.md
           - "2 FFT": notes/MIT6.046/FFT.md
-          - "3 Convex Hull&Median Finding": notes/MIT6.046/Convex Hull&Median Finding.md
-          - "4 van Emde Boas Trees": notes/MIT6.046/van Emde Boas Trees.md
-      - CMU15418:
-          - "1 why parallelism": notes/CMU15418/whyparallelism.md
-          - "2 Modern multicore processors": notes/CMU15418/modernmulticoreprocessors.md
-          - "3 progbasics": notes/CMU15418/progbasics.md
-          - "4 progmodels": notes/CMU15418/progmodels.md
-          - "5 progperf1": notes/CMU15418/progperf1.md
-      - CMU15445:
-          - "1 Relation Module": notes/CMU15445/relation_module.md
-          - "2 Modern SQL": notes/CMU15445/modern_sql.md
-          - "3 storage1": notes/CMU15445/storage1.md
-          - "4 memory": notes/CMU15445/memory.md
-          - "5 storage2": notes/CMU15445/storage2.md
-      - CSAPP:
-          - "1 overview": notes/CSAPP/overview.md
-          - "2 bits-bytes-ints": notes/CSAPP/bits-bytes-ints.md
-          - "3 machine-basics": notes/CSAPP/machine-basics.md
-          - "4 machine-control": notes/CSAPP/machine-control.md
-          - "5 machine-procedures": notes/CSAPP/machine-procedures.md
-          - "6 machine-data": notes/CSAPP/machine-data.md
-          - "7 machine-advanced": notes/CSAPP/machine-advanced.md
-          - "8 design-debugging": notes/CSAPP/design-debugging.md
-          - "9 memory-hierarchy": notes/CSAPP/memory-hierarchy.md
-          - "10 cache-memories": notes/CSAPP/cache-memories.md
   - Blogs:
       - index: blogs/index.md
   - Summaries:

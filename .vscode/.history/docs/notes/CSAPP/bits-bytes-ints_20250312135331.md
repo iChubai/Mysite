@@ -1,0 +1,130 @@
+# Bits, Bytes, and Integers  
+**15-213/14-513/15-513: Introduction to Computer Systems**  
+*2nd Lecture, Aug 29, 2024*  
+
+---
+
+## 1. Binary Representation  
+### Key Concepts:  
+- **Binary (Base-2) System**:  
+  - `0` represents `0`, `1` represents `1`.  
+  - Each position corresponds to a power of 2 (e.g., `1011₂ = 1·2³ + 0·2² + 1·2¹ + 1·2⁰ = 11₁₀`).  
+
+### Examples:  
+| Binary | Decimal Calculation | Decimal Value |  
+|--------|---------------------|---------------|  
+| `000`  | `0·2² + 0·2¹ + 0·2⁰` | `0` |  
+| `001`  | `0·2² + 0·2¹ + 1·2⁰` | `1` |  
+| `010`  | `0·2² + 1·2¹ + 0·2⁰` | `2` |  
+| `011`  | `0·2² + 1·2¹ + 1·2⁰` | `3` |  
+| `100`  | `1·2² + 0·2¹ + 0·2⁰` | `4` |  
+
+---
+
+## 2. Hexadecimal & Octal  
+### Hexadecimal (Base-16):  
+- Digits: `0-9`, `A-F` (e.g., `1A2B₁₆ = 1·16³ + 10·16² + 2·16¹ + 11·16⁰ = 6699₁₀`).  
+- C notation: `0xFA1D37B`.  
+
+### Octal (Base-8):  
+- Less dense than hexadecimal.  
+
+---
+
+## 3. Boolean Algebra & Bit-Level Operations  
+### Operations in C:  
+| Operator | Meaning      | Example (Char)              | Result  |  
+|----------|--------------|------------------------------|---------|  
+| `&`      | AND          | `0x69 & 0x55` → `0x41`       | `01000001` |  
+| `|`      | OR           | `0x69 | 0x55` → `0x7D`       | `01111101` |  
+| `~`      | NOT          | `~0x41` → `0xBE`             | `10111110` |  
+| `^`      | XOR          | `0x69 ^ 0x55` → `0x3C`       | `00111100` |  
+
+### Logic vs. Bitwise Operations:  
+- **Logic Operators** (`&&`, `||`, `!`): Return `0` or `1`.  
+  - Example: `!0x41` → `0x00` (False), `!!0x41` → `0x01` (True).  
+
+---
+
+## 4. Shift Operations  
+### Left Shift (`x << y`):  
+- Fill right with `0`s.  
+  - Example: `01100010 << 3` → `00010000`.  
+
+### Right Shift (`x >> y`):  
+- **Logical Shift**: Fill left with `0`s.  
+  - Example: `10100010 >> 2` → `00101000`.  
+- **Arithmetic Shift**: Replicate sign bit.  
+  - Example: `10100010 >> 2` → `11101000`.  
+
+⚠️ **Undefined Behavior**: Shift amount `< 0` or `≥` word size.  
+
+---
+
+## 5. Integer Representation  
+### Two’s Complement:  
+- **Encoding Negative Numbers**:  
+  - `-x = ~x + 1` (e.g., `-5` in 4-bit: `0101` → `1010 + 1 = 1011`).  
+- **Ranges**:  
+  - **Unsigned**: `0` to `2^w - 1`.  
+  - **Signed (2’s complement)**: `-2^(w-1)` to `2^(w-1) - 1`.  
+
+### Example (16-bit):  
+| Type   | Decimal | Hex    | Binary              |  
+|--------|---------|--------|---------------------|  
+| UMax   | 65535   | `FF FF`| `11111111 11111111` |  
+| TMax   | 32767   | `7F FF`| `01111111 11111111` |  
+| TMin   | -32768  | `80 00`| `10000000 00000000` |  
+
+---
+
+## 6. Conversion & Casting  
+### Sign Extension:  
+- Replicate sign bit to expand width (e.g., `1010` → `11111010`).  
+
+### Truncation:  
+- Drop higher-order bits (e.g., `0xFA1D37B` truncated to 16 bits → `0xD37B`).  
+
+⚠️ **Casting Pitfalls**:  
+- Mixing signed/unsigned in expressions → implicit casting to **unsigned**!  
+
+---
+
+## 7. Addition & Multiplication  
+### Unsigned Addition (`UAdd_w`):  
+- **Modular Arithmetic**: `UAdd_w(u, v) = (u + v) mod 2^w`.  
+
+### Two’s Complement Addition:  
+- Same bit-level behavior as unsigned addition.  
+
+### Multiplication:  
+- Equivalent to `(x * y) mod 2^w`.  
+- **Shift-Multiply Trick**: `(x << 5) - (x << 3)` → `x * 24`.  
+
+---
+
+## 8. Byte Ordering  
+### Endianness:  
+- **Big Endian**: Most significant byte at lowest address.  
+  - Example: `0x01234567` → `01 23 45 67`.  
+- **Little Endian**: Least significant byte at lowest address.  
+  - Example: `0x01234567` → `67 45 23 01`.  
+
+---
+
+## 9. Practice Problems  
+### Example 1:  
+**Q**: Convert `FA1D37B₁₆` to binary.  
+**A**:  
+- `F`→`1111`, `A`→`1010`, `1`→`0001`, `D`→`1101`, `3`→`0011`, `7`→`0111`, `B`→`1011`.  
+- Result: `1111 1010 0001 1101 0011 0111 1011`.  
+
+### Example 2:  
+**Q**: Compute `0x69 & 0x55` and interpret as a set intersection.  
+**A**:  
+- `0x69` = `01101001`, `0x55` = `01010101`.  
+- `&` → `01000001` = `{0, 6}`.  
+
+---
+
+📘 **Further Reading**: *Bryant and O’Hallaron, Computer Systems: A Programmer’s Perspective, Third Edition*  
