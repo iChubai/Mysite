@@ -103,6 +103,7 @@ plugins:
   - search
   - statistics:
       words_per_minute: 200
+  - mkdocs-pdf
 
 markdown_extensions:
   - abbr
@@ -220,10 +221,10 @@ nav:
           - "NLP": notes/Awesome-Blogs/NLP.md
           - "CV": notes/Awesome-Blogs/CV.md
           - "RL": notes/Awesome-Blogs/RL.md
-          - "OS": notes/Awesome-Blogs/OS.md
-          - "DB": notes/Awesome-Blogs/DB.md
+          - "Algorithm": notes/Awesome-Blogs/Algorithm.md
           - "math": notes/Awesome-Blogs/math.md
           - "AI": notes/Awesome-Blogs/AI.md
+          - "Others": notes/Awesome-Blogs/Others.md
       - UCB-CS61c:
           - "1 Intro": notes/UCB-CS61c/1-intro.md
           - "2 C pointers": notes/UCB-CS61c/C pointers.md
@@ -259,6 +260,11 @@ nav:
           - "8 design-debugging": notes/CSAPP/design-debugging.md
           - "9 memory-hierarchy": notes/CSAPP/memory-hierarchy.md
           - "10 cache-memories": notes/CSAPP/cache-memories.md
+      - CS287:
+          - "1 MDPs: Exact Methods": notes/CS287/1-MDPs-Exact-Methods.md
+          - "2 Discretization of Continuous State Space MDPs": notes/CS287/2-discretization-of-continuous-state-space-MDPs.md
+          - "3 Function Approximation": notes/CS287/3-function-approximation.md
+          - "4 LQR": notes/CS287/4-LQR.md
   - Blogs:
       - index: blogs/index.md
   - Summaries:

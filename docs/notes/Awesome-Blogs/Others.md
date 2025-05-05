@@ -1,0 +1,4 @@
+- [并行计算Blogs](https://www.zhihu.com/column/c_1559973134094249985)
+- [Introduction to Parallel Computing](https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial)
+- [C++多线程并发基础入门教程](https://www.zhihu.com/tardis/bd/art/194198073?source_id=1001)
+- []
