@@ -22,14 +22,13 @@ nostatistics: true
 
 ## Bio
 
-I am a second-year undergraduate student majoring in Computer Science at  [Nankai University (NKU)](https://www.nankai.edu.cn/). Currently, I am an intern at [Hvision](https://github.com/HVision-NKU), under the guidance of Prof. [Qibin Hou](https://houqb.github.io/).
+I am a third-year undergraduate student majoring in Computer Science at  [Nankai University (NKU)](https://www.nankai.edu.cn/). Currently, I am an intern at [Hvision](https://github.com/HVision-NKU), under the guidance of Prof. [Qibin Hou](https://houqb.github.io/).
 
 ---
 
 ## Research Interest
 
-- **Computer Vision**: I am committed to the CV field, especially in the field of visual object tracking and kownledge distillation.
-
+- **Computer Vision**: I am committed to the CV field, especially in the field of Multimodal Visual Perception，Visual Object Tracking，Visual Foundation Module.
 ---
 
 ## Education
@@ -73,7 +72,7 @@ Research Intern
 I write articles and share my thinkings on [Zhihu](https://www.zhihu.com/people/chu-bai-13-4) regularly and have 200+ followers so far!
 
 ## Honors
-
+- National Scholarship of China, 2025
 - Scholarship of Public Interests and All-Round Capability, 2024 
 - **Second Prize** of the National College Students Mathematical Modeling Contest (Tianjin Division)
 - **First prize** of the 16th Chinese Mathematics Competitions and **first prize** of the  Tianjin Mathematics Competitions(2024)
@@ -85,3 +84,4 @@ I write articles and share my thinkings on [Zhihu](https://www.zhihu.com/people/
         <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=_1g20YoX1boCjXuxcNhGdbnRQiA2LG8IlLZwCYTAPUQ&cl=ffffff&w=a"></script>
     </div>
 </div>
+
